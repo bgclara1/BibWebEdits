@@ -156,6 +156,8 @@ export function setupNodeOverlays(network, nodes, edges) {
         n.link = formData.link;
         n.notes = formData.notes;
         n.type = formData.type;
+        n.year = formData.year;
+        n.citations = formData.citations;
         n.label = '';
         nodes.update(n);
         
@@ -309,6 +311,8 @@ export function setupNodeOverlays(network, nodes, edges) {
               link: formData.link,
               notes: formData.notes,
               type: formData.type,
+              year: formData.year,
+              citations: formData.citations,
               label: '',
               shape: 'box'
             };

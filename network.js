@@ -205,7 +205,7 @@ export function setupNetwork() {
 		lastSelectedNodes = [];
 	});
 
-	function addOrGetPaper({ title, nickname, authors, doi, link, type, notes }) {
+	function addOrGetPaper({ title, nickname, authors, doi, link, type, notes, year, citations }) {
 		// Remove HTML tags
 		const stripHtmlTags = str => (!str ? '' : str.replace(/<[^>]*>/g, ''));
 		title = stripHtmlTags(title);
@@ -231,6 +231,8 @@ export function setupNetwork() {
 			if (link) existing.link = link;
 			if (type) existing.type = type;
 			if (notes) existing.notes = notes;
+			if (year) existing.year = year;
+			if (citations) existing.citations = citations;
 			const escapeHtml = s => (!s ? '' : s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;'));
 			const formatLabel = node => {
 				const authors = node.authors ? `\n${escapeHtml(node.authors)}` : '';
@@ -261,6 +263,8 @@ export function setupNetwork() {
 			link: link,
 			type: type,
 			notes,
+			year,
+			citations,
 			colorId: DEFAULT_COLOR, // Default color for new nodes
 			label: formatLabel({ title, authors }), 
 			shape: 'box',
