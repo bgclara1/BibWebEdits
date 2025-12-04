@@ -1054,4 +1054,27 @@ export async function setupDocumentToolbar(network, nodes, edges) {
   document.body.addEventListener('drop', (e) => {
     handleDropFiles(e.dataTransfer.files);
   });
+  document.getElementById('listPapersBtn').addEventListener('click', () => {
+    const allNodes = nodes.get();
+    if (!allNodes.length) {
+      alert('No papers in the web.');
+      return;
+    }
+    let listHtml = '<h1>All Papers</h1><ul style="font-family:monospace;line-height:1.7">';
+    allNodes.forEach(node => {
+      listHtml += '<li>';
+      listHtml += `<strong>${node.title || '(untitled)'}</strong>`;
+      if (node.authors) listHtml += ` &mdash; <span>${node.authors}</span>`;
+      if (node.link) listHtml += ` <a href="${node.link}" target="_blank">[link]</a>`;
+      listHtml += '</li>';
+    });
+    listHtml += '</ul>';
+    const win = window.open('', '_blank', 'width=700,height=600');
+    if (win) {
+      win.document.write(`<!DOCTYPE html><html><head><title>Paper List</title></head><body>${listHtml}</body></html>`);
+      win.document.close();
+    } else {
+      alert('Popup blocked. Please allow popups for this site.');
+    }
+  });
 }
